@@ -3,8 +3,8 @@ import ArgumentParser
 @main
 struct ErrBodyApp: ParsableCommand {
 
-    @Option(help: "Day")
-    public var day: Int?
+    @Option(help: "Quest")
+    public var quest: Int?
 
     @Option(help: "Part")
     public var part: Int?
@@ -13,6 +13,6 @@ struct ErrBodyApp: ParsableCommand {
     public var input: String
 
     mutating func run() throws {
-        ErrbodyCodes.run(day: day, part: part, input: input)
+        ErrbodyCodes.run(quest: quest, part: part, input: input)
     }
 }

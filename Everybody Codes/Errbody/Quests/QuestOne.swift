@@ -1,33 +1,20 @@
 //
-//  DayOne.swift
-//  errbvody
+//  QuestOne.swift
+//  errbody
 //
 //  Created by Shawn Veader on 11/5/26.
 //
 
 import Foundation
 
-class DayOne {
+class QuestOne: Questable {    
+
     let input: String
     var numbers: [Int] = []
 
     init(input: String) {
         self.input = input
         self.numbers = input.split(separator: ",").map(String.init).compactMap(Int.init)
-    }
-
-    func run(part: Int) -> Int {
-        switch part {
-        case 1:
-            return partOne()
-        case 2:
-            return partTwo()
-        case 3:
-            return partThree()
-        default:
-            print("Unknown part \(part)")
-            return Int.min
-        }
     }
 
     internal func partOne() -> Int {

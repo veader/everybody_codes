@@ -1,0 +1,31 @@
+{
+  "configurations" : [
+    {
+      "id" : "BB57C22A-8F47-4522-9E18-54D9D474D107",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "codeCoverage" : false,
+    "performanceAntipatternCheckerEnabled" : true,
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:Everybody Codes.xcodeproj",
+      "identifier" : "000000000000000100000000",
+      "name" : "errbody"
+    },
+    "testInteropMode" : "complete"
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:Everybody Codes.xcodeproj",
+        "identifier" : "760A92E9309F5A850019A6C5",
+        "name" : "Errbody Tests"
+      }
+    }
+  ],
+  "version" : 1
+}
