@@ -9,22 +9,20 @@ import Testing
 
 struct QuestOneTests {
 
-    let sampleData = "3,11,12,16,24,25"
-
     @Test func solvePartOneSampleData() async throws {
-        let quest = QuestOne(input: sampleData)
+        let quest = QuestOne(input: QuestOne.samplePart1)
         let answer = try quest.run(part: 1)
         #expect(answer == 11)
     }
 
     @Test func solvePartTwoSampleData() async throws {
-        let quest = QuestOne(input: sampleData)
+        let quest = QuestOne(input: QuestOne.samplePart2)
         let answer = try quest.run(part: 2)
         #expect(answer == 9)
     }
 
     @Test func solvePartThreeSampleData() async throws {
-        let quest = QuestOne(input: sampleData)
+        let quest = QuestOne(input: QuestOne.samplePart3)
         let answer = try quest.run(part: 3)
         #expect(answer == 61)
     }
@@ -51,5 +49,4 @@ struct QuestOneTests {
         let answer = try quest.run(part: 3)
         #expect(answer == 637995)
     }
-
 }

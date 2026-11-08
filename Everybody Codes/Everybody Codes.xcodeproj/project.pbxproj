@@ -20,8 +20,15 @@
 		760A92FA309F882B0019A6C5 /* Exceptions for "Errbody" folder in "Errbody Tests" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
+				Data/quest1_part1.txt,
+				Data/quest1_part2.txt,
+				Data/quest1_part3.txt,
+				Data/quest2_part1.txt,
+				Data/quest2_part2.txt,
+				Data/quest2_part3.txt,
 				Quests/Questable.swift,
 				Quests/QuestOne.swift,
+				Quests/QuestTwo.swift,
 			);
 			target = 760A92E9309F5A850019A6C5 /* Errbody Tests */;
 		};

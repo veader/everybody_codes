@@ -7,7 +7,11 @@
 
 import Foundation
 
-class QuestOne: Questable {    
+class QuestOne: Questable {
+
+    static let samplePart1 = "3,11,12,16,24,25"
+    static let samplePart2 = "3,11,12,16,24,25"
+    static let samplePart3 = "3,11,12,16,24,25"
 
     let input: String
     var numbers: [Int] = []
