@@ -26,8 +26,12 @@
 				Data/quest2_part1.txt,
 				Data/quest2_part2.txt,
 				Data/quest2_part3.txt,
+				Data/quest3_part1.txt,
+				Data/quest3_part2.txt,
+				Data/quest3_part3.txt,
 				Quests/Questable.swift,
 				Quests/QuestOne.swift,
+				Quests/QuestThree.swift,
 				Quests/QuestTwo.swift,
 			);
 			target = 760A92E9309F5A850019A6C5 /* Errbody Tests */;
