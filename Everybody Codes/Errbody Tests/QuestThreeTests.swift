@@ -51,7 +51,7 @@ struct QuestThreeTests {
     @Test func solvePartThreeSampleData() async throws {
         let quest = QuestThree(input: QuestThree.samplePart3)
         let answer = try quest.run(part: 3)
-        #expect(answer == 1161463)
+        #expect(answer == 50987)
     }
 
 

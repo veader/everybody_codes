@@ -117,7 +117,7 @@ class QuestThree: Questable {
 
     internal func partThree() -> Int {
         // first, separate the values into matching ISO standard buckets
-        var isoMap: [String: ElvenISOStandard]
+        var isoMap: [String: ElvenISOStandard] = [:]
         var isoValueMap: [String: [Int]] = [:]
 
         for isoValue in isoValues {
@@ -130,18 +130,77 @@ class QuestThree: Questable {
         print(isoMap)
 
         // next, for each ISO standard bucket, let's determine decimal values and look for overlaps
-        for (standard, values) in isoMap {
-            let iso = isoMap[standard]
-
-            // build a map of decimal to ISO value (this will help us sort out overlapping values)
-            var decimalMap: [Int: Int] = [:]
-            for value in values.sorted() {
-                let decimal = iso?.calculateDecimal(value: value)
-
-                // decimalMap[decimal] = value
-            }
+        for (isoName, iso) in isoMap {
+            guard let values = isoValueMap[isoName] else { continue }
+            let _ = validISO2(standard: iso, values: values)
         }
 
         return 0
+    }
+
+    private func validISO2(standard: ElvenISOStandard, values: [Int]) -> [Int] {
+        print("Examining \(standard.name)...")
+        var validValues: [Int] = []
+        var wrongValues: [Int] = []
+
+        // build a map of decimal to ISO value (this will help us sort out overlapping values)
+        var decimalMap: [Int: Int] = [:]
+
+        for value in values.sorted() {
+            print("----------------------------------------------")
+            print("Looking at value \(value)...")
+            let decimal = standard.calculateDecimal(value: value)
+
+            if let currentMapValue = decimalMap[decimal] {
+                print("Decimal value \(decimal) already found for \(currentMapValue) instead of \(value)")
+
+                if currentMapValue < value {
+                    // TODO: indicate this isn't a valid ISO2
+                    print("Not a proper ISO2 value: \(value). Found lesser value (\(currentMapValue) for decimal \(decimal)")
+                    wrongValues.append(value)
+                } else if currentMapValue > value {
+                    print("Previously higher valuue \(currentMapValue) is greater than \(value) for decimal \(decimal)")
+                    // ideally, this means nothing is less than this value...
+                    wrongValues.append(currentMapValue)
+                    validValues.removeAll(where: { $0 == currentMapValue })
+                    validValues.append(value)
+                    decimalMap[decimal] = value
+                } else {
+                    print("Huh?")
+                }
+                // TODO: do we need to search "under" us for any of these cases?
+            } else { //
+                // store this in the decimal map
+                decimalMap[decimal] = value
+
+                // now we need to determine if any lesser number also has this same value
+                print("Looking for \(decimal) with a lower value than \(value)...")
+                for i in (decimal..<value) {
+                    let idec = standard.calculateDecimal(value: i)
+
+                    if idec == decimal {
+                        // TODO: indicate this isn't a valid ISO2 and stop
+                        print("Not a proper ISO2 value: \(value). Found lesser value (\(idec) for decimal \(decimal) at \(i)")
+                        wrongValues.append(value)
+                        break
+                    } else if idec != decimal {
+                        if decimalMap[idec] == nil {
+                            decimalMap[idec] = i
+                        } else {
+                            // we found another overlap, ideally this is already the lowest value? (This true?)
+                            print("Found dupe for \(idec). Previously at \(decimalMap[idec]) again at \(i)")
+                        }
+                    }
+                }
+
+                // if we made it here, it's good...
+                print("ISO2 value \(value) seems to be good with decimal \(decimal)")
+                validValues.append(value)
+            }
+        }
+
+        print("Valid ISO2 \(standard.name) values: \(validValues)")
+
+        return validValues
     }
 }
