@@ -71,4 +71,11 @@ struct QuestThreeTests {
         #expect(answer == 25682445510)
     }
 
+    @Test func solvePartThree() async throws {
+        let data = try #require(String.readText(file: "quest3_part3"))
+        let quest = QuestThree(input: data)
+        let answer = try quest.run(part: 3)
+        #expect(answer == 326449)
+    }
+
 }
