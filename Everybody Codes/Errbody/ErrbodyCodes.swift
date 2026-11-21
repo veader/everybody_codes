@@ -15,9 +15,9 @@ struct ErrbodyCodes {
 
             switch questNum {
             case 1:
-                quest = QuestOne(input: useSampleData ? QuestOne.sampleData(part) : input)
+                quest = Quest01(input: useSampleData ? Quest01.sampleData(part) : input)
             case 2:
-                quest = QuestTwo(input: useSampleData ? QuestTwo.sampleData(part) : input)
+                quest = Quest02(input: useSampleData ? Quest02.sampleData(part) : input)
             default:
                 throw ErrbodyError.unknownQuest(questNum)
             }

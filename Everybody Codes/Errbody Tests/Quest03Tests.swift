@@ -1,5 +1,5 @@
 //
-//  QuestThreeTests.swift
+//  Quest03Tests.swift
 //  Errbody Tests
 //
 //  Created by Shawn Veader on 11/9/26.
@@ -7,7 +7,7 @@
 
 import Testing
 
-struct QuestThreeTests {
+struct Quest03Tests {
 
     @Test("Parse ISO Standard and Value", arguments: [
         ("ISO-3210 7654", "ISO-3210", 7654, [3,2,1,0]),
@@ -15,7 +15,7 @@ struct QuestThreeTests {
         ("ISO-1111 1111", "ISO-1111", 1111, [1,1,1,1]),
     ])
     func shouldParseISOStandardAndValue(iso: String, standard: String, value: Int, weights: [Int]) async throws {
-        let isoStandard = try #require(QuestThree.ElvenISOValue(input: iso))
+        let isoStandard = try #require(Quest03.ElvenISOValue(input: iso))
         #expect(isoStandard.standard.name == standard)
         #expect(isoStandard.standard.standardWeights == weights)
         #expect(isoStandard.value == value)
@@ -30,26 +30,26 @@ struct QuestThreeTests {
         ("ISO-34 140856", 1416),
     ])
     func shouldCalculateISOStandardValue(iso: String, value: Int) async throws {
-        let isoStandard = try #require(QuestThree.ElvenISOValue(input: iso))
+        let isoStandard = try #require(Quest03.ElvenISOValue(input: iso))
         #expect(isoStandard.weightedValue == value)
     }
 
     // MARK: -
 
     @Test func solvePartOneSampleData() async throws {
-        let quest = QuestThree(input: QuestThree.samplePart1)
+        let quest = Quest03(input: Quest03.samplePart1)
         let answer = try quest.run(part: 1)
         #expect(answer == 1478)
     }
 
     @Test func solvePartTwoSampleData() async throws {
-        let quest = QuestThree(input: QuestThree.samplePart2)
+        let quest = Quest03(input: Quest03.samplePart2)
         let answer = try quest.run(part: 2)
         #expect(answer == 1161463)
     }
 
     @Test func solvePartThreeSampleData() async throws {
-        let quest = QuestThree(input: QuestThree.samplePart3)
+        let quest = Quest03(input: Quest03.samplePart3)
         let answer = try quest.run(part: 3)
         #expect(answer == 50987)
     }
@@ -59,21 +59,21 @@ struct QuestThreeTests {
 
     @Test func solvePartOne() async throws {
         let data = try #require(String.readText(file: "quest3_part1"))
-        let quest = QuestThree(input: data)
+        let quest = Quest03(input: data)
         let answer = try quest.run(part: 1)
         #expect(answer == 13825)
     }
 
     @Test func solvePartTwo() async throws {
         let data = try #require(String.readText(file: "quest3_part2"))
-        let quest = QuestThree(input: data)
+        let quest = Quest03(input: data)
         let answer = try quest.run(part: 2)
         #expect(answer == 25682445510)
     }
 
     @Test func solvePartThree() async throws {
         let data = try #require(String.readText(file: "quest3_part3"))
-        let quest = QuestThree(input: data)
+        let quest = Quest03(input: data)
         let answer = try quest.run(part: 3)
         #expect(answer == 326449)
     }

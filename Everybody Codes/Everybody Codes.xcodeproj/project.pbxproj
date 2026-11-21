@@ -32,11 +32,17 @@
 				Data/quest4_part1.txt,
 				Data/quest4_part2.txt,
 				Data/quest4_part3.txt,
+				Data/quest5_part1.txt,
+				Data/quest5_part2.txt,
+				Helpers/Coordinate.swift,
+				Helpers/GridMap.swift,
+				Helpers/RelativeDirection.swift,
+				Quests/Quest01.swift,
+				Quests/Quest02.swift,
+				Quests/Quest03.swift,
+				Quests/Quest04.swift,
+				Quests/Quest05.swift,
 				Quests/Questable.swift,
-				Quests/QuestFour.swift,
-				Quests/QuestOne.swift,
-				Quests/QuestThree.swift,
-				Quests/QuestTwo.swift,
 			);
 			target = 760A92E9309F5A850019A6C5 /* Errbody Tests */;
 		};

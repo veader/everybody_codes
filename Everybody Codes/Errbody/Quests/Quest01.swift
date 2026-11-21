@@ -1,5 +1,5 @@
 //
-//  QuestOne.swift
+//  Quest01.swift
 //  errbody
 //
 //  Created by Shawn Veader on 11/5/26.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-class QuestOne: Questable {
+class Quest01: Questable {
 
     static let samplePart1 = "3,11,12,16,24,25"
     static let samplePart2 = "3,11,12,16,24,25"
@@ -37,7 +37,7 @@ class QuestOne: Questable {
             let lowerBound = Int(floor * floor)
 
             if lowerBound == upperBound {
-                print("Same Bounds")
+                // print("Same Bounds")
                 return Int.max
             } else if lowerBound == num {
                 // print("Nothing to get (lower)")
@@ -46,7 +46,7 @@ class QuestOne: Questable {
                 // print("We need \(upperBound - num)")
                 return upperBound - num
             } else {
-                print("Unsure...")
+                // print("Unsure...")
                 return Int.min
             }
         }

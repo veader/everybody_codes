@@ -1,5 +1,5 @@
 //
-//  QuestThree.swift
+//  Quest03.swift
 //  errbody
 //
 //  Created by Shawn Veader on 11/9/26.
@@ -8,7 +8,7 @@
 import Foundation
 import RegexBuilder
 
-class QuestThree: Questable {
+class Quest03: Questable {
 
     static let samplePart1 = """
         ISO-3210 7654

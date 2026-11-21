@@ -1,5 +1,5 @@
 //
-//  QuestFour.swift
+//  Quest04.swift
 //  Everybody Codes
 //
 //  Created by Shawn Veader on 11/15/26.
@@ -8,7 +8,7 @@
 import Foundation
 import RegexBuilder
 
-class QuestFour: Questable {
+class Quest04: Questable {
 
     static let samplePart1 = """
         id=1 quest=1 part=1 time=187
@@ -226,7 +226,7 @@ class QuestFour: Questable {
         }
 
         let sortedScores = groupedScores.sorted(by: { $0.key > $1.key })
-        print(sortedScores)
+        // print(sortedScores)
 
         var checksum = 0
         var offset = 1 // start at the first one

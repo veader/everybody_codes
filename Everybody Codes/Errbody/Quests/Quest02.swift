@@ -1,5 +1,5 @@
 //
-//  QuestTwo.swift
+//  Quest02.swift
 //  Errbody Tests
 //
 //  Created by Shawn Veader on 11/7/26.
@@ -8,7 +8,7 @@
 import Foundation
 import RegexBuilder
 
-class QuestTwo: Questable {
+class Quest02: Questable {
 
     static let samplePart1 = """
         4<3 2<5 3>1 1>2 1<5 4<1 3>2 4<2 3>5 4<5
@@ -90,12 +90,12 @@ class QuestTwo: Questable {
             weakest = weakest.filter { !sorted.contains($0.key) }
 
             if weakest.count > 1 {
-                print("Oh no! Weakest: \(weakest)\nSorted: \(sorted)\nRest: \(theRest)")
+                // print("Oh no! Weakest: \(weakest)\nSorted: \(sorted)\nRest: \(theRest)")
                 return nil
             }
 
             guard let theWeakest = weakest.first?.key else {
-                print("Womp womp...\nSorted: \(sorted)\nRest: \(theRest)")
+                // print("Womp womp...\nSorted: \(sorted)\nRest: \(theRest)")
                 return nil
             }
 
