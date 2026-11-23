@@ -169,6 +169,25 @@ class GridMap<Element> {
         }
     }
 
+    /// Finds all coordinates at the edge of the grid's space
+    func boundaryCoordinates() -> [Coordinate] {
+        var edges: Set<Coordinate> = []
+
+        // top/bottom edges
+        for x in xBounds {
+            edges.insert(Coordinate(x: x, y: yBounds.lowerBound))
+            edges.insert(Coordinate(x: x, y: yBounds.upperBound - 1))
+        }
+
+        // left/right edges
+        for y in yBounds {
+            edges.insert(Coordinate(x: xBounds.lowerBound, y: y))
+            edges.insert(Coordinate(x: xBounds.upperBound - 1, y: y))
+        }
+
+        return Array(edges)
+    }
+
     /// Is this coordinate valid within the grid's coordinate space?
     func valid(coordinate c: Coordinate) -> Bool {
         xBounds.contains(c.x) && yBounds.contains(c.y)

@@ -36,16 +36,17 @@ struct Quest05Tests {
         #expect(answer == 1255)
     }
 
-//    @Test func solvePartTwo() async throws {
-//        let data = try #require(String.readText(file: "quest4_part2"))
-//        let quest = Quest04(input: data)
-//        let answer = try quest.run(part: 2)
-//        #expect(answer == 587022019)
-//    }
-//
+    @Test func solvePartTwo() async throws {
+        let data = try #require(String.readText(file: "quest5_part2"))
+        let quest = Quest05(input: data)
+        let answer = try quest.run(part: 2)
+        #expect(answer == 1096)
+        // 1096 (not correct) correct: length and first digit
+    }
+
 //    @Test func solvePartThree() async throws {
-//        let data = try #require(String.readText(file: "quest4_part3"))
-//        let quest = Quest04(input: data)
+//        let data = try #require(String.readText(file: "quest5_part3"))
+//        let quest = Quest05(input: data)
 //        let answer = try quest.run(part: 3)
 //        #expect(answer == 6229092)
 //    }
