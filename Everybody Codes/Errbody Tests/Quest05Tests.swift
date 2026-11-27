@@ -40,7 +40,7 @@ struct Quest05Tests {
         let data = try #require(String.readText(file: "quest5_part2"))
         let quest = Quest05(input: data)
         let answer = try quest.run(part: 2)
-        #expect(answer == 1096)
+        #expect(answer == 1111)
         // 1096 (not correct) correct: length and first digit
     }
 

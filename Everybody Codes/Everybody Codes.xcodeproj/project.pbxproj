@@ -34,6 +34,7 @@
 				Data/quest4_part3.txt,
 				Data/quest5_part1.txt,
 				Data/quest5_part2.txt,
+				Data/quest5_part3.txt,
 				Helpers/Coordinate.swift,
 				Helpers/GridMap.swift,
 				Helpers/RelativeDirection.swift,

@@ -37,7 +37,19 @@ class Quest05: Questable {
         001100101110010010000
         """
 
-    static let samplePart3 = "3,11,12,16,24,25"
+    static let samplePart3 = """
+        010100100100001101000
+        111101001000001110000
+        101111011000101010011
+        001000101010000100000
+        000110100110011001100
+        000001110111111000000
+        101100010101011110000
+        001101100000001010011
+        001001001111010001001
+        100011011110011010101
+        001100101110010010000
+        """
 
     let input: String
     var grid: GridMap<String>
@@ -51,17 +63,24 @@ class Quest05: Questable {
 
     internal func partOne() -> Int {
         createLand()
+
         return grid.count(where: { $0 == "#" })
     }
 
     internal func partTwo() -> Int {
         createLand()
         createSand()
+
         return grid.count(where: { $0 == "=" })
     }
 
     internal func partThree() -> Int {
-        return 0
+        createLand()
+        createSand()
+        createTrees()
+        // grow forest twice
+
+        return 0 // count trees 
     }
 
     /// Crawl through the coordinate space and create the land (and water)
@@ -136,6 +155,43 @@ class Quest05: Questable {
     }
 
     private func createSand() {
+        // find all land touching water
+        var starterSand: Set<Coordinate> = []
+
+        let water = grid.filter { $1 == "." }
+        for coordinate in water {
+            let neighbors = grid.adjacentCoordinates(to: coordinate)
+            let land = neighbors.filter { grid.item(at: $0) == "#" }
+            starterSand.formUnion(Set(land))
+        }
+
+        // find all land touching edge of map
+        let edges = grid.boundaryCoordinates()
+        for coordinate in edges {
+            guard grid.item(at: coordinate) == "#" else { continue }
+            starterSand.insert(coordinate)
+        }
+
+        // build our starter sand
+        starterSand.forEach { grid.update(at: $0, with: "=") }
+
+        var toInvestigate = findPotentialSand()
+        while !toInvestigate.isEmpty {
+            let newSand = toInvestigate
+            newSand.forEach { grid.update(at: $0, with: "=") }
+
+            let investigateNext = findPotentialSand()
+            if investigateNext == toInvestigate {
+                toInvestigate = [] // done
+            } else {
+                toInvestigate = investigateNext
+            }
+        }
+    }
+
+    /*
+    // first optimized attempt.
+    private func createSand0() {
         /// Sand that no longer touches land
         var outerSand: Set<Coordinate> = []
         /// Sand that still touches land
@@ -205,6 +261,20 @@ class Quest05: Questable {
             } else {
                 toInvestigate = newToInvestigate
             }
+        }
+    }
+     */
+
+    private func createTrees() {
+
+    }
+
+    private func findPotentialSand() -> [Coordinate] {
+        // look for any place within the grid that has land that has 5 or more neighbors.
+        grid.filter { c, s in
+            guard s == "#" else { return false }
+            let adj = grid.adjacentItems(to: c)
+            return adj.filter({ $0 == "=" }).count >= 5
         }
     }
 }
