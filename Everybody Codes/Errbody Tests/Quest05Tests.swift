@@ -21,11 +21,11 @@ struct Quest05Tests {
         #expect(answer == 69)
     }
 
-//    @Test func solvePartThreeSampleData() async throws {
-//        let quest = Quest04(input: Quest04.samplePart3)
-//        let answer = try quest.run(part: 3)
-//        #expect(answer == 2998)
-//    }
+    @Test func solvePartThreeSampleData() async throws {
+        let quest = Quest05(input: Quest05.samplePart3)
+        let answer = try quest.run(part: 3)
+        #expect(answer == 14)
+    }
 
 
     // MARK: -
@@ -41,14 +41,14 @@ struct Quest05Tests {
         let quest = Quest05(input: data)
         let answer = try quest.run(part: 2)
         #expect(answer == 1111)
-        // 1096 (not correct) correct: length and first digit
     }
 
-//    @Test func solvePartThree() async throws {
-//        let data = try #require(String.readText(file: "quest5_part3"))
-//        let quest = Quest05(input: data)
-//        let answer = try quest.run(part: 3)
-//        #expect(answer == 6229092)
-//    }
+    // excluded... takes too long :/ 
+    @Test func solvePartThree() async throws {
+        let data = try #require(String.readText(file: "quest5_part3"))
+        let quest = Quest05(input: data)
+        let answer = try quest.run(part: 3)
+        #expect(answer == 9476)
+    }
 
 }

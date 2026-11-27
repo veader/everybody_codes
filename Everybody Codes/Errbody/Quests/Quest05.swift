@@ -64,24 +64,32 @@ class Quest05: Questable {
     internal func partOne() -> Int {
         createLand()
 
-        return grid.count(where: { $0 == "#" })
+        return grid.count(where: { $0 == "#" }) // count land
     }
 
     internal func partTwo() -> Int {
         createLand()
         createSand()
 
-        return grid.count(where: { $0 == "=" })
+        return grid.count(where: { $0 == "=" }) // count sand
     }
 
     internal func partThree() -> Int {
         createLand()
         createSand()
-        createTrees()
-        // grow forest twice
 
-        return 0 // count trees 
+        // plant initial trees
+        createTrees()
+
+        // grow forest twice
+        growForest()
+        growForest()
+
+        return grid.count(where: { $0 == "@" }) // count trees
     }
+
+
+    // MARK: - Map Building
 
     /// Crawl through the coordinate space and create the land (and water)
     ///
@@ -189,84 +197,79 @@ class Quest05: Questable {
         }
     }
 
-    /*
-    // first optimized attempt.
-    private func createSand0() {
-        /// Sand that no longer touches land
-        var outerSand: Set<Coordinate> = []
-        /// Sand that still touches land
-        var innerSand: Set<Coordinate> = []
 
-
-        // find all land touching water
-        var starterSand: Set<Coordinate> = []
-
-        let water = grid.filter { $1 == "." }
-        for coordinate in water {
-            let neighbors = grid.adjacentCoordinates(to: coordinate)
-            let land = neighbors.filter { grid.item(at: $0) == "#" }
-            starterSand.formUnion(Set(land))
+    private func createTrees() {
+        // find our search area. since we need at least 2 points vertically and horizontally, move space in
+        let searchSpace: [Coordinate] = (2..<grid.yBounds.upperBound - 2).flatMap { y in
+            (2..<grid.xBounds.upperBound - 2).map { x in
+                Coordinate(x: x, y: y)
+            }
         }
 
-        // find all land touching edge of map
-        let edges = grid.boundaryCoordinates()
-        for coordinate in edges {
-            guard grid.item(at: coordinate) == "#" else { continue }
-            starterSand.insert(coordinate)
-        }
+        let nope = [".", "="] // nothing sand or water
 
-        // build our starter sand
-        starterSand.forEach { grid.update(at: $0, with: "=") }
+        // look through search space looking for our pattern
+        for c in searchSpace {
+            let surrounding = treeSearchArea(at: c)
 
-        innerSand = starterSand
-        var toInvestigate: Set<Coordinate> = starterSand
-
-        // then for each newly created piece of sand, iterate
-        while !toInvestigate.isEmpty {
-            var newSand: Set<Coordinate> = []
-
-            for c in toInvestigate {
-                // find all adjacent pieces of land and determine if they should become sand
-                let adjacent = grid.adjacentCoordinates(to: c)
-                let nearbyLand = adjacent.filter { grid.item(at: $0) == "#" } // find all adjacent land
-
-                for lc in nearbyLand {
-                    let adj = grid.adjacentItems(to: lc)
-                    let nearbySand = adj.filter { $0 == "=" }
-
-                    if nearbySand.count >= 5 {
-                        newSand.insert(lc)
-                    }
-                }
+            // if we find water in the search area, we don't plant a tree
+            let testLambda: ((Coordinate) -> Bool) = {
+                guard let i = self.grid.item(at: $0) else { return false }
+                return nope.contains(i)
             }
 
-            // convert land to sand
-            newSand.forEach { grid.update(at: $0, with: "=") }
-
-            // move sand from inner to outer if it no longer touches land
-            var shiftingSand: Set<Coordinate> = []
-            for sand in innerSand {
-                let adjLand = grid.adjacentItems(to: sand).filter { $0 == "#" }
-                if adjLand.count == 0 {
-                    shiftingSand.insert(sand)
-                }
-            }
-            innerSand.subtract(shiftingSand)
-            outerSand.formUnion(shiftingSand)
-
-
-            let newToInvestigate = innerSand
-            if newToInvestigate == toInvestigate {
-                toInvestigate = [] // we're done, nothing changed on this run
-            } else {
-                toInvestigate = newToInvestigate
+            if surrounding.first(where: testLambda) == nil {
+                grid.update(at: c, with: "@")
             }
         }
     }
-     */
 
-    private func createTrees() {
+    private func growForest() {
+        var plantingSpots: Set<Coordinate> = []
 
+        // find all land spots
+        let land = grid.filter(by: { $1 == "#" })
+
+        // find places to plant trees
+        for c in land {
+            let adj = grid.adjacentItems(to: c)
+            // this is a plantable spot if there are no adjacent sand spots
+            // AND at least 4+ neighbors are already trees
+            if adj.count(where: { $0 == "=" }) == 0 && adj.count(where: { $0 == "@" }) >= 4 {
+                plantingSpots.insert(c)
+            }
+        }
+
+        plantingSpots.forEach { grid.update(at: $0, with: "@") }
+    }
+
+
+    // MARK: - Helpers
+
+    // Tree search area looks a bit like this...
+    // Ignore `.` and `X` (this coordinate)
+    // Find   `+`
+    //
+    // .+++.
+    // +++++
+    // ++X++
+    // +++++
+    // .+++.
+    private func treeSearchArea(at coordinate: Coordinate) -> [Coordinate] {
+        ((coordinate.y - 2)...(coordinate.y + 2)).flatMap { y in
+            ((coordinate.x - 2)...(coordinate.x + 2)).compactMap { x -> Coordinate? in
+                if (y == coordinate.y - 2 || y == coordinate.y + 2) &&
+                    (x == coordinate.x - 2 || x == coordinate.x + 2) {
+                    // ignore the corners
+                    return nil
+                } else if x == coordinate.x && y == coordinate.y {
+                    // ignore "self"
+                    return nil
+                }
+
+                return Coordinate(x: x, y: y)
+            }
+        }
     }
 
     private func findPotentialSand() -> [Coordinate] {

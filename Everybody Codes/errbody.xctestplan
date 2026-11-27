@@ -20,6 +20,16 @@
   },
   "testTargets" : [
     {
+      "skippedTests" : {
+        "suites" : [
+          {
+            "name" : "Quest05Tests",
+            "testFunctions" : [
+              "solvePartThree()"
+            ]
+          }
+        ]
+      },
       "target" : {
         "containerPath" : "container:Everybody Codes.xcodeproj",
         "identifier" : "760A92E9309F5A850019A6C5",
@@ -27,5 +37,5 @@
       }
     }
   ],
-  "version" : 1
+  "version" : 2
 }
